@@ -2,8 +2,6 @@
 {
     public class Product : IJsonString
     {
-        public static int SIZE_NOT_APPLICABLE = -1;
-
         public string Code { get; set; }
         public int Color { get; set; }
         public Size Size { get; set; }
