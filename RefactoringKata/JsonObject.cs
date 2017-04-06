@@ -41,7 +41,7 @@ namespace RefactoringKata
             return Sb.ToString();
         }
 
-        public void AddArray<T>(string name, List<T> values) where T : IJsonObject
+        public void AddArray<T>(string name, List<T> values) where T : IJsonString
         {
             AddCommaIfNeed();
             Sb.Append(string.Format("\"{0}\": [", name));

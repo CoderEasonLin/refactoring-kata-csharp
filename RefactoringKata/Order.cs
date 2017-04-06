@@ -2,7 +2,7 @@
 
 namespace RefactoringKata
 {
-    public class Order : IJsonObject
+    public class Order : IJsonString
     {
         private readonly int id;
         private readonly List<Product> _products = new List<Product>();

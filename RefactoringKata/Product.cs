@@ -1,6 +1,6 @@
 ﻿namespace RefactoringKata
 {
-    public class Product : IJsonObject
+    public class Product : IJsonString
     {
         public static int SIZE_NOT_APPLICABLE = -1;
 
@@ -69,10 +69,5 @@
                     return "no color";
             }
         }
-    }
-
-    public interface IJsonObject
-    {
-        string GetJsonString();
     }
 }
