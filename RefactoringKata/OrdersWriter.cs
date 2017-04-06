@@ -26,20 +26,17 @@ namespace RefactoringKata
                 for (var j = 0; j < order.GetProductsCount(); j++)
                 {
                     var product = order.GetProduct(j);
-                    sb.Append("{");
-                    sb.Append(GetJsonProperty("code", product.Code));
-                    sb.Append(GetJsonProperty("color", getColorFor(product)));
-
+                    var jsonObject = new JsonObject();
+                    jsonObject.AddProperty("code", product.Code);
+                    jsonObject.AddProperty("color", getColorFor(product));
                     if (product.Size != Product.SIZE_NOT_APPLICABLE)
                     {
-                        sb.Append(GetJsonProperty("size", getSizeFor(product)));
+                        jsonObject.AddProperty("size", getSizeFor(product));
                     }
+                    jsonObject.AddProperty("price", product.Price);
+                    jsonObject.AddProperty("currency", product.Currency);
 
-                    sb.Append(GetJsonProperty("price", product.Price));
-
-                    sb.Append(GetJsonProperty("currency", product.Currency));
-                    sb.Remove(sb.Length - 2, 2);
-                    sb.Append("}, ");
+                    sb.Append(jsonObject.GetJsonString());
                 }
 
                 if (order.GetProductsCount() > 0)
@@ -63,12 +60,6 @@ namespace RefactoringKata
         {
             return string.Format("\"{0}\": {1}, ", name, value);
         }
-
-        private string GetJsonProperty(string name, string value)
-        {
-            return string.Format("\"{0}\": \"{1}\", ", name, value);
-        }
-
 
         private string getSizeFor(Product product)
         {
@@ -104,6 +95,45 @@ namespace RefactoringKata
                 default:
                     return "no color";
             }
+        }
+    }
+
+    public class JsonObject
+    {
+        public StringBuilder sb = new StringBuilder();
+
+        public JsonObject()
+        {
+            sb = new StringBuilder();
+            sb.Append("{");
+        }
+
+        public void AddProperty(string name, string value)
+        {
+            sb.Append(GetJsonProperty(name, value));
+        }
+
+        public void AddProperty(string name, double value)
+        {
+            sb.Append(GetJsonProperty(name, value));
+        }
+
+
+        private string GetJsonProperty(string name, string value)
+        {
+            return string.Format("\"{0}\": \"{1}\", ", name, value);
+        }
+
+        private string GetJsonProperty(string name, double value)
+        {
+            return string.Format("\"{0}\": {1}, ", name, value);
+        }
+
+        public string GetJsonString()
+        {
+            sb.Remove(sb.Length - 2, 2);
+            sb.Append("}, ");
+            return sb.ToString();
         }
     }
 }
