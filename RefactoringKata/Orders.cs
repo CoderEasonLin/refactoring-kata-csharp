@@ -2,7 +2,7 @@
 
 namespace RefactoringKata
 {
-    public class Orders
+    public class Orders : IJsonObject
     {
         private List<Order> _orders = new List<Order>();
 
@@ -24,6 +24,15 @@ namespace RefactoringKata
         public List<Order> GetOrders()
         {
             return _orders;
+        }
+
+        public string GetJsonString()
+        {
+            var jsonObject = new JsonObject();
+            jsonObject.AddArray("orders", _orders);
+            var jsonString = jsonObject.GetJsonString();
+            jsonString = jsonString.Substring(0, jsonString.Length - 2);
+            return jsonString;
         }
     }
 }
