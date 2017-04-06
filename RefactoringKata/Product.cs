@@ -1,6 +1,6 @@
 ﻿namespace RefactoringKata
 {
-    public class Product
+    public class Product : IJsonObject
     {
         public static int SIZE_NOT_APPLICABLE = -1;
 
@@ -18,5 +18,61 @@
             Price = price;
             Currency = currency;
         }
+
+        public string GetJsonString()
+        {
+            var jsonObject = new JsonObject();
+            jsonObject.AddProperty("code", Code);
+            jsonObject.AddProperty("color", GetColorFor());
+            if (Size != Product.SIZE_NOT_APPLICABLE)
+            {
+                jsonObject.AddProperty("size", GetSizeFor());
+            }
+            jsonObject.AddProperty("price", Price);
+            jsonObject.AddProperty("currency", Currency);
+
+            return jsonObject.GetJsonString();
+        }
+
+        private string GetSizeFor()
+        {
+            switch (Size)
+            {
+                case 1:
+                    return "XS";
+                case 2:
+                    return "S";
+                case 3:
+                    return "M";
+                case 4:
+                    return "L";
+                case 5:
+                    return "XL";
+                case 6:
+                    return "XXL";
+                default:
+                    return "Invalid Size";
+            }
+        }
+
+        private string GetColorFor()
+        {
+            switch (Color)
+            {
+                case 1:
+                    return "blue";
+                case 2:
+                    return "red";
+                case 3:
+                    return "yellow";
+                default:
+                    return "no color";
+            }
+        }
+    }
+
+    public interface IJsonObject
+    {
+        string GetJsonString();
     }
 }
