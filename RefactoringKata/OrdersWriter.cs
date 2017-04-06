@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
 
 namespace RefactoringKata
 {
@@ -18,24 +19,10 @@ namespace RefactoringKata
             for (var i = 0; i < _orders.GetOrdersCount(); i++)
             {
                 var order = _orders.GetOrder(i);
-                sb.Append("{");
-
-                sb.Append(GetJsonProperty("id", order.GetOrderId()));
-                sb.Append("\"products\": [");
-
-                for (var j = 0; j < order.GetProductsCount(); j++)
-                {
-                    var product = order.GetProduct(j);
-                    sb.Append(product.GetJsonString());
-                }
-
-                if (order.GetProductsCount() > 0)
-                {
-                    sb.Remove(sb.Length - 2, 2);
-                }
-
-                sb.Append("]");
-                sb.Append("}, ");
+                var jsonObject = new JsonObject();
+                jsonObject.AddProperty("id", order.GetOrderId());
+                jsonObject.AddArray("products", order.Products);
+                sb.Append(jsonObject.GetJsonString());
             }
 
             if (_orders.GetOrdersCount() > 0)
@@ -88,6 +75,21 @@ namespace RefactoringKata
             Sb.Remove(Sb.Length - 2, 2);
             Sb.Append("}, ");
             return Sb.ToString();
+        }
+
+        public void AddArray<T>(string name, List<T> values) where T : IJsonObject
+        {
+            Sb.Append(string.Format("\"{0}\": [", name));
+            foreach (var value in values)
+            {
+                Sb.Append(value.GetJsonString());
+            }
+
+            if (values.Count > 0)
+            {
+                Sb.Remove(Sb.Length - 2, 2);
+            }
+            Sb.Append("], ");
         }
     }
 }

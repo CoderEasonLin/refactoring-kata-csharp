@@ -12,6 +12,11 @@ namespace RefactoringKata
             this.id = id;
         }
 
+        public List<Product> Products
+        {
+            get { return _products; }
+        }
+
         public int GetOrderId()
         {
             return id;
