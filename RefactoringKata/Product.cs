@@ -6,7 +6,7 @@
 
         public string Code { get; set; }
         public int Color { get; set; }
-        public int Size { get; set; }
+        public Size Size { get; set; }
         public double Price { get; set; }
         public string Currency { get; set; }
 
@@ -14,7 +14,7 @@
         {
             Code = code;
             Color = color;
-            Size = size;
+            Size = (Size)size;
             Price = price;
             Currency = currency;
         }
@@ -24,7 +24,7 @@
             var jsonObject = new JsonObject();
             jsonObject.AddProperty("code", Code);
             jsonObject.AddProperty("color", GetColorFor());
-            if (Size != Product.SIZE_NOT_APPLICABLE)
+            if (Size != Size.SizeNotApplicable)
             {
                 jsonObject.AddProperty("size", GetSizeFor());
             }
@@ -38,17 +38,17 @@
         {
             switch (Size)
             {
-                case 1:
+                case Size.XS:
                     return "XS";
-                case 2:
+                case Size.S:
                     return "S";
-                case 3:
+                case Size.M:
                     return "M";
-                case 4:
+                case Size.L:
                     return "L";
-                case 5:
+                case Size.XL:
                     return "XL";
-                case 6:
+                case Size.XXL:
                     return "XXL";
                 default:
                     return "Invalid Size";
