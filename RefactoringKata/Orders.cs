@@ -30,9 +30,7 @@ namespace RefactoringKata
         {
             var jsonObject = new JsonObject();
             jsonObject.AddArray("orders", _orders);
-            var jsonString = jsonObject.GetJsonString();
-            jsonString = jsonString.Substring(0, jsonString.Length - 2);
-            return jsonString;
+            return jsonObject.GetJsonString();
         }
     }
 }
