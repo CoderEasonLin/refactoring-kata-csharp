@@ -29,11 +29,6 @@ namespace RefactoringKata
 
             return sb.Append("]}").ToString();
         }
-
-        private string GetJsonProperty(string name, double value)
-        {
-            return string.Format("\"{0}\": {1}, ", name, value);
-        }
     }
 
     public class JsonObject
