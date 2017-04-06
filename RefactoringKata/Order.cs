@@ -2,7 +2,7 @@
 
 namespace RefactoringKata
 {
-    public class Order
+    public class Order : IJsonObject
     {
         private readonly int id;
         private readonly List<Product> _products = new List<Product>();
@@ -35,6 +35,14 @@ namespace RefactoringKata
         public void AddProduct(Product product)
         {
             _products.Add(product);
+        }
+
+        public string GetJsonString()
+        {
+            var jsonObject = new JsonObject();
+            jsonObject.AddProperty("id", GetOrderId());
+            jsonObject.AddArray("products", Products);
+            return jsonObject.GetJsonString();
         }
     }
 }

@@ -19,10 +19,7 @@ namespace RefactoringKata
             for (var i = 0; i < _orders.GetOrdersCount(); i++)
             {
                 var order = _orders.GetOrder(i);
-                var jsonObject = new JsonObject();
-                jsonObject.AddProperty("id", order.GetOrderId());
-                jsonObject.AddArray("products", order.Products);
-                sb.Append(jsonObject.GetJsonString());
+                sb.Append(order.GetJsonString());
             }
 
             if (_orders.GetOrdersCount() > 0)
