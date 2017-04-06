@@ -23,7 +23,6 @@ namespace RefactoringKata
             Sb.Append(GetJsonProperty(name, value));
         }
 
-
         private string GetJsonProperty(string name, string value)
         {
             return string.Format("\"{0}\": \"{1}\", ", name, value);
