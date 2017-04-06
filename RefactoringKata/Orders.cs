@@ -21,11 +21,6 @@ namespace RefactoringKata
             return _orders[i];
         }
 
-        public List<Order> GetOrders()
-        {
-            return _orders;
-        }
-
         public string GetJsonString()
         {
             var jsonObject = new JsonObject();

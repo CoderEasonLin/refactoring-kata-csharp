@@ -12,11 +12,6 @@ namespace RefactoringKata
             this.id = id;
         }
 
-        public List<Product> Products
-        {
-            get { return _products; }
-        }
-
         public int GetOrderId()
         {
             return id;
@@ -41,7 +36,7 @@ namespace RefactoringKata
         {
             var jsonObject = new JsonObject();
             jsonObject.AddProperty("id", GetOrderId());
-            jsonObject.AddArray("products", Products);
+            jsonObject.AddArray("products", _products);
             return jsonObject.GetJsonString();
         }
     }
