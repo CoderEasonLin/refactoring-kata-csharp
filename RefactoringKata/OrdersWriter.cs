@@ -19,35 +19,27 @@ namespace RefactoringKata
             {
                 var order = _orders.GetOrder(i);
                 sb.Append("{");
-                sb.Append("\"id\": ");
-                sb.Append(order.GetOrderId());
-                sb.Append(", ");
+
+                sb.Append(GetJsonProperty("id", order.GetOrderId()));
                 sb.Append("\"products\": [");
 
                 for (var j = 0; j < order.GetProductsCount(); j++)
                 {
                     var product = order.GetProduct(j);
                     sb.Append("{");
-                    sb.Append("\"code\": \"");
-                    sb.Append(product.Code);
-                    sb.Append("\", ");
-                    sb.Append("\"color\": \"");
-                    sb.Append(getColorFor(product));
-                    sb.Append("\", ");
+                    sb.Append(GetJsonProperty("code", product.Code));
+                    sb.Append(GetJsonProperty("color", getColorFor(product)));
 
                     if (product.Size != Product.SIZE_NOT_APPLICABLE)
                     {
-                        sb.Append("\"size\": \"");
-                        sb.Append(getSizeFor(product));
-                        sb.Append("\", ");
+                        sb.Append(GetJsonProperty("size", getSizeFor(product)));
                     }
 
-                    sb.Append("\"price\": ");
-                    sb.Append(product.Price);
-                    sb.Append(", ");
-                    sb.Append("\"currency\": \"");
-                    sb.Append(product.Currency);
-                    sb.Append("\"}, ");
+                    sb.Append(GetJsonProperty("price", product.Price));
+
+                    sb.Append(GetJsonProperty("currency", product.Currency));
+                    sb.Remove(sb.Length - 2, 2);
+                    sb.Append("}, ");
                 }
 
                 if (order.GetProductsCount() > 0)
@@ -65,6 +57,16 @@ namespace RefactoringKata
             }
 
             return sb.Append("]}").ToString();
+        }
+
+        private string GetJsonProperty(string name, double value)
+        {
+            return string.Format("\"{0}\": {1}, ", name, value);
+        }
+
+        private string GetJsonProperty(string name, string value)
+        {
+            return string.Format("\"{0}\": \"{1}\", ", name, value);
         }
 
 
