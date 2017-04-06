@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace RefactoringKata
+﻿namespace RefactoringKata
 {
     public enum Size
     {
@@ -26,11 +24,5 @@ namespace RefactoringKata
 
         [TypeText("XXL")]
         XXL
-    }
-
-    public class TypeTextAttribute : Attribute
-    {
-        public string TypeText;
-        public TypeTextAttribute(string typeText) { TypeText = typeText; }
     }
 }
