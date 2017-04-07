@@ -3,14 +3,13 @@ using System.Text;
 
 namespace RefactoringKata
 {
-    public class JsonObject
+    public class JsonBuilder
     {
         public StringBuilder Sb;
 
-        public JsonObject()
+        public JsonBuilder()
         {
             Sb = new StringBuilder();
-            Sb.Append("{");
         }
 
         public void AddProperty(string name, string value)
@@ -37,8 +36,7 @@ namespace RefactoringKata
 
         public string GetJsonString()
         {
-            Sb.Append("}");
-            return Sb.ToString();
+            return string.Format("{{{0}}}", Sb);
         }
 
         public void AddArray<T>(string name, List<T> values) where T : IJsonString
@@ -59,7 +57,8 @@ namespace RefactoringKata
 
             if (!s.EndsWith("{") &&
                 !s.EndsWith("[") &&
-                !s.EndsWith(", "))
+                !s.EndsWith(", ") &&
+                !string.IsNullOrEmpty(s))
                 Sb.Append(", ");
         }
     }

@@ -19,7 +19,7 @@
 
         public string GetJsonString()
         {
-            var jsonObject = new JsonObject();
+            var jsonObject = new JsonBuilder();
             jsonObject.AddProperty("code", Code);
             jsonObject.AddProperty("color", Color.GetTypeText());
             if (Size != Size.SizeNotApplicable)

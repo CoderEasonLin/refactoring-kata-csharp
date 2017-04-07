@@ -23,7 +23,7 @@ namespace RefactoringKata
 
         public string GetJsonString()
         {
-            var jsonObject = new JsonObject();
+            var jsonObject = new JsonBuilder();
             jsonObject.AddArray("orders", _orders);
             return jsonObject.GetJsonString();
         }
